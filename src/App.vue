@@ -1,29 +1,50 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app id="inspire">
+    <v-toolbar color="purple" dark>
+      <v-toolbar-title>PhoneBook</v-toolbar-title>
+    </v-toolbar>
+
+    <PhoneBookList :data="items"/>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import {PhoneBookList} from '@/components';
+
+@Component({
+  components: {
+    PhoneBookList,
+  }
+})
+export default class App extends Vue {
+  
+  // private drawer: boolean = false;
+
+  private data() {
+    return {
+      items: [
+        {
+          id: 1,
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          name: '김정훈',
+          phoneNumber: '010-3198-2036'
+        },
+        {
+          id: 2,
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+          name: '권혁준',
+          phoneNumber: '010-1234-5678'
+        },
+        {
+          id: 3,
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+          name: '홍혜린',
+          phoneNumber: '010-1234-1234'
+        }
+      ]
+    };
   }
 }
-</style>
+</script>
