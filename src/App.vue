@@ -42,6 +42,11 @@ export default class App extends Vue {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
           name: '홍혜린',
           phoneNumber: '010-1234-1234'
+        },
+        {
+          id: 4,
+          name: '박수석',
+          phoneNumber: '010-5678-1234'
         }
       ]
     };

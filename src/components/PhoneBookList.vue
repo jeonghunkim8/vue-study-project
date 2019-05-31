@@ -1,18 +1,10 @@
 <template>
   <v-list two-line>
     <template v-for="(item, index) in data">
-
-      <v-divider
-        v-if="index"
-        :key="index"
-      ></v-divider>
-
       <PersonCard 
-        :key="'_'+item.id"
-        :id="item.id"
-        :avatar="item.avatar"
-        :name="item.name"
-        :phoneNumber="item.phoneNumber"
+        :key="index"
+        :index="index"
+        :data="item"
       />
     </template>
   </v-list>
