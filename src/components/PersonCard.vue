@@ -7,7 +7,7 @@
 
     <v-list-tile
       avatar
-      @click="() => {}"
+      @click="click(data.id)"
     >
       <v-list-tile-avatar v-if="data.avatar">
         <img :src="data.avatar">
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import { PersonDTO } from '@/types';
 
 @Component
@@ -41,6 +41,9 @@ export default class PersonCard extends Vue {
 
   @Prop()
   private data?: PersonDTO;
+
+  @Emit('onClick')
+  private click(id: number) {}
 
 }
 </script>

@@ -22,6 +22,12 @@ export default new Router({
           name: 'Kurly PhoneBook',
           component: () => import(/* webpackChunkName: "about" */ '@/views/PhoneBookView.vue'),
         },
+        {
+          path: '/phoneBook/:id',
+          name: 'Kurly PhoneBook Detail',
+          component: () => import(/* webpackChunkName: "about" */ '@/views/PhoneBookDetailView.vue'),
+        },
+        
       ]
     },
   ],

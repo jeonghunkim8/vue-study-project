@@ -5,6 +5,7 @@
         :key="index"
         :index="index"
         :data="item"
+        @onClick="onPersonCardSelected"
       />
     </template>
   </v-list>
@@ -24,5 +25,11 @@ export default class PhoneBookList extends Vue {
 
   @Prop({default: []})
   private data?: PersonDTO[];
+
+  private onPersonCardSelected(id: number) {
+    this.$router.push({
+      path: `/phoneBook/${id}`,
+    });
+  }
 }
 </script>
