@@ -4,6 +4,7 @@
       <div>
         <div class="headline">{{person.id}}. {{person.name}}</div>
         <span>{{person.jd}}</span>
+        <div>{{person.phoneNumber}}</div>
       </div>
     </v-card-title>
     <v-card-actions>

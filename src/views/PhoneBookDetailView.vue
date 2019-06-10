@@ -13,9 +13,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Inject } from 'vue-property-decorator';
 import { PersonCardDetail } from '@/components';
 import { PersonDTO } from '@/types';
+import { PhoneBookService } from '../service';
 
 @Component({
   components: {
@@ -23,19 +24,30 @@ import { PersonDTO } from '@/types';
   }
 })
 export default class PhoneBookDetailView extends Vue {
-  
+
+  @Inject()
+  private phoneBookService!: PhoneBookService;
+
   private person: PersonDTO | {} = {};
 
   //mounted
-  private mounted() {
-    const { id } = this.$router.currentRoute.params;
+  private async mounted() {
 
-    this.person = {
-      id: Number(id),
-      name: '김정훈',
-      phoneNumber: '010-3198-2036',
-      jd: 'Logistics Platform Developer',
-    };
+    console.log(this.phoneBookService.foo);
+
+    const id = Number(this.$router.currentRoute.params.id);
+
+    const resp = await this.phoneBookService.getPerson(id);
+
+    if (resp.status === 200) {
+      this.person = resp.data;
+    }
+    // this.person = {
+    //   id: Number(id),
+    //   name: '김정훈',
+    //   phoneNumber: '010-3198-2036',
+    //   jd: 'Logistics Platform Developer',
+    // };
   }
 }
 </script>
