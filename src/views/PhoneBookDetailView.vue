@@ -16,6 +16,9 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { PersonCardDetail } from '@/components';
 import { PersonDTO } from '@/types';
+import { namespace, State, Action, Getter } from 'vuex-class';
+
+const PersonStoreModule = namespace('PersonStore');
 
 @Component({
   components: {
@@ -24,18 +27,17 @@ import { PersonDTO } from '@/types';
 })
 export default class PhoneBookDetailView extends Vue {
   
-  private person: PersonDTO | {} = {};
+  @PersonStoreModule.State('person')
+  private person?: PersonDTO;
+
+  @PersonStoreModule.Action('requestGetPerson')
+  private requestGetPerson!: (id: number) => Promise<void>;
 
   //mounted
-  private mounted() {
+  private async mounted() {
     const { id } = this.$router.currentRoute.params;
 
-    this.person = {
-      id: Number(id),
-      name: '김정훈',
-      phoneNumber: '010-3198-2036',
-      jd: 'Logistics Platform Developer',
-    };
+    this.requestGetPerson(Number(id));
   }
 }
 </script>
