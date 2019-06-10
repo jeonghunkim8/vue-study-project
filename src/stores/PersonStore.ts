@@ -9,18 +9,17 @@ export default class PersonStore extends VuexModule {
   public person: PersonDTO | {} = {};
 
 
-  @MutationAction({mutate: ['peopleList']})
+  @Action({commit: 'setPeopleList'})
   public async requestGetPeopleList() {
     const resp = await axios.get('http://localhost:8081/people');
     if (resp.status === 200) {
-      return {
-        peopleList: resp.data,
-      };
-    } else {
-      return {
-        peopleList: [],
-      };
+      return resp.data;
     }
+  }
+
+  @Mutation
+  public setPeopleList(peopleList: PersonDTO[]) {
+    this.peopleList = peopleList;
   }
 
   @MutationAction({mutate: ['person']})
