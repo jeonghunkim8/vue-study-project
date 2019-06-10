@@ -1,44 +1,40 @@
 import axios from 'axios';
 import { PersonDTO } from '@/types';
-import { ActionContext, Module } from 'vuex';
+import { Module, VuexModule, Mutation, Action, MutationAction } from 'vuex-module-decorators';
+
+@Module({namespaced: true})
+export default class PersonStore extends VuexModule {
+  
+  public peopleList: PersonDTO[] = [];
+  public person: PersonDTO | {} = {};
 
 
+  @MutationAction({mutate: ['peopleList']})
+  public async requestGetPeopleList() {
+    const resp = await axios.get('http://localhost:8081/people');
+    if (resp.status === 200) {
+      return {
+        peopleList: resp.data,
+      };
+    } else {
+      return {
+        peopleList: [],
+      };
+    }
+  }
 
-interface IPersonStore {
-  peopleList: PersonDTO[];
-  person: PersonDTO | {};
+  @MutationAction({mutate: ['person']})
+  public async requestGetPerson(id: number) {
+    const resp = await axios.get(`http://localhost:8081/people/${id}`);
+    if (resp.status === 200) {
+      return {
+        person: resp.data,
+      };
+    } else {
+      return {
+        person: {},
+      };
+    }
+  }
+
 }
-
-const state: IPersonStore = {
-  peopleList: [],
-  person: {}
-};
-
-const PersonStore: Module<IPersonStore, {}> = {
-  namespaced: true,
-  state,
-  mutations: {
-    setPeopleList: (state: IPersonStore, peopleList: PersonDTO[]) => {
-      state.peopleList = peopleList;
-    },
-    setPerson: (state: IPersonStore, person: PersonDTO) => {
-      state.person = person;
-    }
-  },
-  actions: {
-    requestGetPeopleList: async (context: ActionContext<IPersonStore, {}>) => {
-      const resp = await axios.get('http://localhost:8081/people');
-      if (resp.status === 200) {
-        context.commit('setPeopleList', resp.data);
-      }
-    },
-    requestGetPerson: async (context: ActionContext<IPersonStore, {}>, id: number) => {
-      const resp = await axios.get(`http://localhost:8081/people/${id}`);
-      if (resp.status === 200) {
-        context.commit('setPerson', resp.data);
-      }
-    }
-  },
-};
-
-export default PersonStore;
