@@ -8,7 +8,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { PhoneBookList } from '@/components';
 import { namespace, State, Action, Getter } from 'vuex-class';
-import { PersonDTO } from '../types';
+import { PersonDTO } from '@/types';
 
 const PersonStoreModule = namespace('PersonStore');
 
