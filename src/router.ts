@@ -1,12 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { MainView } from './views/layout';
-import {Home} from '@/views';
+import {Home, LoginView} from '@/views';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
     {
       path: '/',
       redirect: 'phoneBook',

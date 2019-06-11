@@ -27,10 +27,10 @@ const PersonStoreModule = namespace('PersonStore');
 })
 export default class PhoneBookDetailView extends Vue {
   
-  @PersonStoreModule.State('person')
+  @PersonStoreModule.State
   private person?: PersonDTO;
 
-  @PersonStoreModule.Action('requestGetPerson')
+  @PersonStoreModule.Action
   private requestGetPerson!: (id: number) => Promise<void>;
 
   //mounted
